@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Streamer {
+  id Int @id @default(autoincrement())
+  userName String @unique
+  commands Commands[]
+  socials Social[]
+}
+
+model Commands {
+  id Int @id @default(autoincrement())
+  streamerId Int
+  streamer Streamer @relation(fields: [streamerId], references: [id])
+  command String
+}
+
+model Social {
+  id Int @id @default(autoincrement())
+  streamerId Int
+  streamer Streamer @relation(fields: [streamerId], references: [id])
+  title String
+  link String
+}
