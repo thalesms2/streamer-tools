@@ -18,6 +18,7 @@ model Streamer {
   userName String @unique
   commands Commands[]
   socials Social[]
+  secret String
 }
 
 model Commands {
