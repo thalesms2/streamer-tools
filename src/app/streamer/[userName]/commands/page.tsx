@@ -24,7 +24,7 @@ export default async function Commands({ params }: { params: { userName: string 
       <div className='grid grid-cols-5 xl:mx-[300px] lg:mx-[200px] md:mx-[100px] sm:mx-[20px] gap-3'>
         {commands?.map(command => {
           return(
-            <CommandChip data={command}/>
+            <CommandChip data={command} key={command.id}/>
           )
         })}
       </div>

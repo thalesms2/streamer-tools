@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Inter, Ubuntu, Roboto, Open_Sans, Montserrat } from 'next/font/google'
+import 'react-toastify/dist/ReactToastify.css';
+
+import { ToastContainer } from 'react-toastify';
 
 export const metadata: Metadata = {
   title: "Streamer Tools",
@@ -46,6 +49,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={montserrat.variable}>
         {children}
+        <ToastContainer 
+          theme="dark"
+          position="bottom-right"
+          closeOnClick
+        />
       </body>
     </html>
   );
