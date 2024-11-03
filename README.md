@@ -7,4 +7,9 @@ comandos da live
 
 api/streamer?id=streamerId&secret=umachavealeatoria&commands=todososcomandos
 
-https://fkhadra.github.io/react-toastify/introduction/
+- [ ] Spotify tocando agora
+- [ ] SR sound request PELO YOUTUBE
+
+[developer API Spotify](https://developer.spotify.com/)
+
+[react-toastify](https://fkhadra.github.io/react-toastify/introduction/)
