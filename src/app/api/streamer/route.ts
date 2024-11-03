@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from '@/lib/prisma'
 
 export async function GET(request: NextRequest) {
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
   })
 
   if(streamer == null)
-    return Response.error
+    return NextResponse.json({ error: 'Bad Request' }, { status: 400 })
   
   if(streamer.secret == secret){
     let command = commands.replaceAll("!", "").split(", ")
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
       return { streamerId: Number(id), command: x }
     })
     if (commandFormated == undefined)
-      return Response.error
+      return NextResponse.json({ error: 'Bad Request' }, { status: 400 })
     const dbFind = await prisma.commands.findMany({
       where: {
         streamerId: Number(id)
@@ -37,14 +37,14 @@ export async function GET(request: NextRequest) {
     const dbReturn = await prisma.commands.createManyAndReturn({
       data: res,
     })
-    return Response.json({ 
+    return NextResponse.json({ 
       res,
       dbFind,
       commandFormated,
       dbReturn
     });
   } else {
-    return Response.error
+    return NextResponse.json({ error: 'Bad Request' }, { status: 400 })
   }
 }
 //api/streamer?id=streamerId&secret=umachavealeatoria&commands=todososcomandos

@@ -8,7 +8,7 @@ interface IProps {
 
 export default function CommandChip(props: IProps) {
   function copyToClipBoard() {
-    navigator.clipboard.writeText(props.data.command)
+    navigator.clipboard.writeText(`!${props.data.command}`)
     toast.info("Comando copiado para o clipboard")
   }
   return (
