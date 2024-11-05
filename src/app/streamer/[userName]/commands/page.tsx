@@ -1,25 +1,35 @@
 import CommandChip from '@/components/command-chip';
 import prisma from '@/lib/prisma'
+import { ICommands } from '@/types/commands';
+import { IStreamer } from '@/types/streamer';
 
-export default async function Commands({ params }: { params: { userName: string } }) {
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const streamer = await prisma.streamer.findMany();
+  return streamer.map((streamer) => ({
+    userName: String(streamer.userName),
+  }))
+}
+
+export default async function Commands({ params }: { params: Promise<{ userName: string }> }) {
   const { userName } = await params;
-  const streamer = await prisma.streamer.findUnique({
+  const streamer: IStreamer = await prisma.streamer.findUnique({
     where: {
-      userName: userName
+      userName: userName,
     }
-  })
-  let commands
-  if(streamer != null) {
-    commands = await prisma.commands.findMany({
-      where: {
-        streamerId: streamer.id
-      }
-    })
-  }
+  });
+
+  const commands: ICommands[] = await prisma.commands.findMany({
+    where: {
+      streamerId: streamer.id,
+    }
+  });
+
   return (
     <div>
       <h1>
-        {userName}
+        {streamer.userName}
       </h1>
       <div className='grid grid-cols-5 xl:mx-[300px] lg:mx-[200px] md:mx-[100px] sm:mx-[20px] gap-3'>
         {commands?.map(command => {

@@ -6,8 +6,7 @@ export async function GET(request: NextRequest) {
   const secret = request.nextUrl.searchParams.get("secret")
   const commands = request.nextUrl.searchParams.get("commands")
   if(id == null || secret == null || commands == null)
-    return Response.error
-
+    return new Response('Bad Request', { status: 400, })
   const streamer = await prisma.streamer.findUnique({
     where: {
       id: Number(id)
@@ -15,7 +14,7 @@ export async function GET(request: NextRequest) {
   })
 
   if(streamer == null)
-    return NextResponse.json({ error: 'Bad Request' }, { status: 400 })
+    return new Response('Bad Request', { status: 400, })
   
   if(streamer.secret == secret){
     let command = commands.replaceAll("!", "").split(", ")
@@ -23,7 +22,7 @@ export async function GET(request: NextRequest) {
       return { streamerId: Number(id), command: x }
     })
     if (commandFormated == undefined)
-      return NextResponse.json({ error: 'Bad Request' }, { status: 400 })
+      return new Response('Bad Request', { status: 400, })
     const dbFind = await prisma.commands.findMany({
       where: {
         streamerId: Number(id)
@@ -37,14 +36,9 @@ export async function GET(request: NextRequest) {
     const dbReturn = await prisma.commands.createManyAndReturn({
       data: res,
     })
-    return NextResponse.json({ 
-      res,
-      dbFind,
-      commandFormated,
-      dbReturn
-    });
+    return new Response('Comandos inseridos com sucesso!');
   } else {
-    return NextResponse.json({ error: 'Bad Request' }, { status: 400 })
+    return new Response('Bad Request', { status: 400, })
   }
 }
 //api/streamer?id=streamerId&secret=umachavealeatoria&commands=todososcomandos

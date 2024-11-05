@@ -1,9 +1,11 @@
-export default async function StreamerPage({ params }: { params: { userName: string } }) {
-  const { userName } = await params;
+'use client'
+import { usePathname } from 'next/navigation'
+
+export default function StreamerPage() {
+  const query = usePathname().split('/');
   return (
     <div>
-      { userName }
-      hello world
+      hello world  {query[2]}
     </div>
   )
 }
