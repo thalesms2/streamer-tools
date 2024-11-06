@@ -14,24 +14,24 @@ datasource db {
 }
 
 model Streamer {
-  id Int @id @default(autoincrement())
-  userName String @unique
+  id       Int        @id @default(autoincrement())
+  userName String     @unique
   commands Commands[]
-  socials Social[]
-  secret String
+  socials  Social[]
+  secret   String
 }
 
 model Commands {
-  id Int @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   streamerId Int
-  streamer Streamer @relation(fields: [streamerId], references: [id])
-  command String
+  streamer   Streamer @relation(fields: [streamerId], references: [id])
+  command    String
 }
 
 model Social {
-  id Int @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   streamerId Int
-  streamer Streamer @relation(fields: [streamerId], references: [id])
-  title String
-  link String
+  streamer   Streamer @relation(fields: [streamerId], references: [id])
+  title      String
+  link       String
 }
