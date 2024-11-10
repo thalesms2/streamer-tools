@@ -6,12 +6,12 @@ import { ISocial } from "@/types/social";
 export default async function StreamerPage({
   params,
 }: {
-  params: Promise<{ userName: string }>;
+  params: Promise<{ username: string }>;
 }) {
-  const { userName } = await params;
+  const { username } = await params;
   const streamer: IStreamer = await prisma.streamer.findUnique({
     where: {
-      userName: userName,
+      username: username,
     },
   });
   const sociais: ISocial[] = await prisma.social.findMany({
@@ -21,7 +21,7 @@ export default async function StreamerPage({
   });
   return (
     <section>
-      @{streamer.userName}
+      @{streamer.username}
       <div className="flex flex-col gap-2">
         {sociais.map((social) => {
           return (

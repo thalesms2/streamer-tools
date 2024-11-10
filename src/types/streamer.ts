@@ -1,5 +1,5 @@
 export interface IStreamer {
   id: number;
-  userName: string;
+  username: string;
   secret: string;
 }
