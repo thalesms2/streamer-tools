@@ -8,8 +8,8 @@ export default async function Streamers() {
       {streamers.map((streamer) => {
         return (
           <div key={streamer.id}>
-            <Link href={`/streamer/${streamer.userName}`}>
-              {streamer.id} - {streamer.userName}
+            <Link href={`/streamer/${streamer.username}`}>
+              {streamer.id} - {streamer.username}
             </Link>
           </div>
         );

@@ -15,10 +15,13 @@ datasource db {
 
 model Streamer {
   id       Int        @id @default(autoincrement())
-  userName String     @unique
+  username String     @unique
+  password String
+  isAdmin  Boolean
   commands Commands[]
   socials  Social[]
   secret   String
+  theme    Theme
 }
 
 model Commands {
@@ -34,4 +37,10 @@ model Social {
   streamer   Streamer @relation(fields: [streamerId], references: [id])
   title      String
   link       String
+}
+
+enum Theme {
+  PINK
+  DARK
+  BLACKNWHITE
 }

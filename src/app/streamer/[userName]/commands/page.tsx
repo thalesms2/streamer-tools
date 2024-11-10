@@ -8,19 +8,19 @@ export const dynamicParams = true;
 export async function generateStaticParams() {
   const streamer = await prisma.streamer.findMany();
   return streamer.map((streamer) => ({
-    userName: String(streamer.userName),
+    username: String(streamer.username),
   }));
 }
 
 export default async function Commands({
   params,
 }: {
-  params: Promise<{ userName: string }>;
+  params: Promise<{ username: string }>;
 }) {
-  const { userName } = await params;
+  const { username } = await params;
   const streamer: IStreamer = await prisma.streamer.findUnique({
     where: {
-      userName: userName,
+      username: username,
     },
   });
   const commands: ICommands[] = await prisma.commands.findMany({
@@ -28,7 +28,6 @@ export default async function Commands({
       streamerId: streamer.id,
     },
   });
-
   return (
     <div>
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3">

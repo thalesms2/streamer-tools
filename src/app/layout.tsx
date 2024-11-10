@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter, Ubuntu, Roboto, Open_Sans, Montserrat } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Nav from "@/components/nav";
 
 import { ToastContainer } from "react-toastify";
 
@@ -49,9 +50,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.variable}>
-        {children}
-        <SpeedInsights />
-        <ToastContainer theme="dark" position="bottom-right" closeOnClick />
+        <main className="xl:mx-[400px] lg:mx-[200px] md:mx-[100px] sm:mx-[20px]">
+          <Nav />
+          {children}
+          <SpeedInsights />
+          <ToastContainer theme="dark" position="bottom-right" closeOnClick />
+        </main>
       </body>
     </html>
   );
