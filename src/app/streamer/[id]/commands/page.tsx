@@ -3,6 +3,15 @@ import prisma from "@/lib/prisma";
 import { ICommands } from "@/types/command";
 import { IStreamer } from "@/types/streamer";
 
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const streamer = await prisma.streamer.findMany();
+  return streamer.map((streamer) => ({
+    username: String(streamer.username),
+  }));
+}
+
 export default async function Commands({
   params,
 }: {
