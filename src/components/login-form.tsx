@@ -22,9 +22,9 @@ export default function LoginForm({
   return (
     <div className="flex h-[90vh] justify-center items-center">
       <form onSubmit={handleSubmit(loginAction)} className="p-2 flex flex-col gap-1">
-        <input type="text" className={inputStyle} {...register("username")} />
+        <input type="text" placeholder="Nome de usuário" className={inputStyle} {...register("username")} />
         {errors.username?.message && errors.username?.message}
-        <input type="password" className={inputStyle} {...register("password")} />
+        <input type="password" placeholder="Senha"  className={inputStyle} {...register("password")} />
         {errors.password?.message && errors.password?.message}
         <input type="submit" value="Entrar" />
       </form>

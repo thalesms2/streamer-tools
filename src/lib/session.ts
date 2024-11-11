@@ -2,7 +2,6 @@
 
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
-import { getCookie, getCookies, setCookie, deleteCookie, hasCookie } from 'cookies-next/client';
 
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
@@ -61,4 +60,10 @@ export async function updateSession() {
 export async function deleteSession() {
   const cookieStore = await cookies();
   cookieStore.delete("session");
+}
+
+export async function validateSession() {
+  const cookie = (await cookies()).get('session')?.value;
+  const session = await decrypt(cookie);
+  return Boolean(session?.id)
 }

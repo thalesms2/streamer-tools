@@ -4,8 +4,14 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import ValidateExibition from "./validate-exibition";
 
-export default function Nav() {
-  const [,,username] = usePathname().split("/");
+export default function Nav({
+  hasSession,
+  logoutAction,
+}: {
+  hasSession: boolean;
+  logoutAction: () => void;
+}) {
+  const [, , username] = usePathname().split("/");
   return (
     <nav className="min-h-12 flex items-center justify-between">
       <div className="flex gap-x-4">
@@ -19,7 +25,15 @@ export default function Nav() {
         </ValidateExibition>
       </div>
       <div className="flex gap-x-4">
-        <Link href={`/login`}>Login</Link>
+        <ValidateExibition show={!hasSession}>
+          <Link href={`/login`}>Login</Link>
+        </ValidateExibition>
+        <ValidateExibition show={hasSession}>
+          <Link href={`/settings`}>Configurações</Link>
+          <Link href={`/login`} onClick={logoutAction}>
+            Sair
+          </Link>
+        </ValidateExibition>
       </div>
     </nav>
   );

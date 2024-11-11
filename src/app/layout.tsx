@@ -4,6 +4,8 @@ import { Inter, Ubuntu, Roboto, Open_Sans, Montserrat } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Nav from "@/components/nav";
+import { validateSession,  } from "@/lib/session";
+import { logout } from '@/actions/auth';
 
 import { ToastContainer } from "react-toastify";
 
@@ -42,16 +44,17 @@ const montserrat = Montserrat({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const hasSession = await validateSession();
   return (
     <html lang="en">
       <body className={montserrat.variable}>
         <main className="xl:mx-[400px] lg:mx-[200px] md:mx-[100px] sm:mx-[20px]">
-          <Nav />
+          <Nav hasSession={hasSession} logoutAction={logout} />
           {children}
           <SpeedInsights />
           <ToastContainer theme="dark" position="bottom-right" closeOnClick />

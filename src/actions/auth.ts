@@ -18,9 +18,9 @@ export async function login(data: IFormData) {
     });
     if (user.password === password) {
       await createSession(user.id);
-      redirect("/settings");
+      return true;
     } else {
-      throw new Error("Not Authorized");
+      return false;
     }
   } catch (error) {
     return error;
