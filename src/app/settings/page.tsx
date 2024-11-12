@@ -1,15 +1,22 @@
-import { verifySession } from "@/lib/dal";
+'use client';
 
-export default async function SettingsPage() {
-  // const session = await verifySession();
-  // const userRole = session?.user?.role; // Assuming 'role' is part of the session object
+import { UploadButton } from "@/lib/upload";
 
-  // if (userRole === "admin") {
-  //   return <AdminDashboard />;
-  // } else if (userRole === "user") {
-  //   return <UserDashboard />;
-  // } else {
-  //   redirect("/login");
-  // }
-  return <div>Hello Settings</div>
+export default function SettingsPage() {
+  return(
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          // Do something with the response
+          console.log("Files: ", res);
+          alert("Upload Completed");
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      />
+    </main>
+  )
 }

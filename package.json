@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
     "@prisma/client": "^5.21.1",
+    "@uploadthing/react": "^7.1.1",
     "@vercel/speed-insights": "^1.0.14",
     "bcrypt": "^5.1.1",
     "cookies-next": "^5.0.2",
@@ -20,6 +21,7 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.1",
     "react-toastify": "^10.0.6",
+    "uploadthing": "^7.3.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

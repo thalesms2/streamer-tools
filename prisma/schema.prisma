@@ -14,14 +14,18 @@ datasource db {
 }
 
 model Streamer {
-  id       Int        @id @default(autoincrement())
-  username String     @unique
-  password String
-  isAdmin  Boolean
-  commands Commands[]
-  socials  Social[]
-  secret   String
-  theme    Theme
+  id          Int        @id @default(autoincrement())
+  username    String     @unique
+  password    String
+  isAdmin     Boolean
+  commands    Commands[]
+  socials     Social[]
+  secret      String
+  theme       Theme
+  avatar      String?
+  description String?
+  displayName String?
+  font        String?
 }
 
 model Commands {
@@ -43,4 +47,6 @@ enum Theme {
   PINK
   DARK
   BLACKNWHITE
+  HANNA
+  SATO
 }

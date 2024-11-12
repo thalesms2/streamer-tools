@@ -58,12 +58,15 @@ export async function updateSession() {
 }
 
 export async function deleteSession() {
-  const cookieStore = await cookies();
-  cookieStore.delete("session");
+  await (await cookies()).delete("session");
 }
 
 export async function validateSession() {
-  const cookie = (await cookies()).get('session')?.value;
-  const session = await decrypt(cookie);
-  return Boolean(session?.id)
+  if((await cookies()).has('session')){
+    const cookie = (await cookies()).get('session')?.value;
+    const session = await decrypt(cookie);
+    if(session?.id)
+      return true
+  }
+  return false
 }

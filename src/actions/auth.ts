@@ -28,7 +28,7 @@ export async function login(data: IFormData) {
 }
 
 export async function logout() {
-  deleteSession();
+  await deleteSession();
   redirect("/login");
 }
 
