@@ -1,7 +1,7 @@
 "use server";
 
-import { login } from "@/actions/auth";
-import LoginForm from "@/components/login-form";
+import { login } from "@/hooks/auth";
+import LoginForm from "@/app/login/loginForm";
 import { IFormData } from "@/types/login";
 import { redirect } from "next/navigation";
 

@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { IStreamer } from "@/types/streamer";
 import { ISocial } from "@/types/social";
-import { style } from "@/lib/streamer-theme";
+import { link, title } from "@/components/style/links";
 
 export default async function StreamerPage({
   params,
@@ -20,6 +20,9 @@ export default async function StreamerPage({
       streamerId: streamer.id,
     },
   });
+  const capitalize = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
   return (
     <section>
       <div className="flex flex-col gap-4 justify-center items-center">
@@ -30,9 +33,9 @@ export default async function StreamerPage({
               href={social.link}
               target="_blank"
               key={social.id}
-              className="w-[95vw] md:w-[60vw] rounded lg:w-[500px] py-5 text-center shadow-md shadow-slate-800 transition ease-in-out delay bg-slate-500 hover:-translate-y-0.5 hover:-translate-x-0.5 hover:scale-105 hover:bg-slate-600 duration-100"
+              className={link[streamer.theme]}
             >
-              {social.title}
+              <span className={title[streamer.theme]}>{capitalize(social.title)}</span>
             </Link>
           );
         })}

@@ -70,3 +70,12 @@ export async function validateSession() {
   }
   return false
 }
+
+export async function returnId() {
+  if((await cookies()).has('session')){
+    const cookie = (await cookies()).get('session')?.value;
+    const session = await decrypt(cookie);
+    if(session?.id)
+      return session.id;
+  }
+}

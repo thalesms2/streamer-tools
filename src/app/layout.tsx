@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "react-toastify/dist/ReactToastify.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Nav from "@/components/nav";
+import Nav from "@/app/nav";
 import { validateSession,  } from "@/lib/session";
-import { logout } from '@/actions/auth';
+import { logout } from '@/hooks/auth';
 import { montserrat } from "@/lib/fonts";
-
-import { ToastContainer } from "react-toastify";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: "Streamer Tools",
   description: "Ferramentas para streamers",
 };
-
-
 
 export default async function RootLayout({
   children,
@@ -22,14 +19,21 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={montserrat.variable}>
-        <main className="xl:mx-[400px] lg:mx-[200px] md:mx-[100px] sm:mx-[20px]">
-          <Nav validateSession={validateSession} logoutAction={logout} />
-          {children}
-          <SpeedInsights />
-          <ToastContainer theme="dark" position="bottom-right" closeOnClick />
-        </main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main className="xl:mx-[400px] lg:mx-[200px] md:mx-[100px] sm:mx-[20px]">
+            <Nav validateSession={validateSession} logoutAction={logout} />
+            {children}
+            <SpeedInsights />
+            <Toaster />
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

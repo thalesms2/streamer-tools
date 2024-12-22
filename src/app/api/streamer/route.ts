@@ -3,8 +3,8 @@ import prisma from "@/lib/prisma";
 
 export async function GET(request: NextRequest) {
   const id = request.nextUrl.searchParams.get("id");
-  const secret = request.nextUrl.searchParams.get("secret");
-  const commands = request.nextUrl.searchParams.get("commands");
+  const secret = request.headers.get("secret");
+  const commands = request.headers.get("commands");
   if (id == null || secret == null || commands == null)
     return new Response("Bad Request", { status: 400 });
   const streamer = await prisma.streamer.findUnique({
@@ -31,11 +31,13 @@ export async function GET(request: NextRequest) {
         command: true,
       },
     });
-    const res = commandFormated.filter(
-      (x) => !dbFind.some((y) => y.command == x.command)
-    );
+    const dbDel = await prisma.commands.deleteMany({
+      where: {
+        streamerId: Number(id),
+      }
+    })
     const dbReturn = await prisma.commands.createManyAndReturn({
-      data: res,
+      data: commandFormated,
     });
     return new Response("Comandos inseridos com sucesso!");
   } else {

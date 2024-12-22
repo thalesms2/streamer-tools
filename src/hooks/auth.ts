@@ -1,6 +1,5 @@
 "use server";
 
-import { LoginFormSchema, FormState } from "../lib/loginDefinition";
 import bcrypt from "bcrypt";
 import prisma from "@/lib/prisma";
 import type { IFormData } from "@/types/login";

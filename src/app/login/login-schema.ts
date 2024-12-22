@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const LoginFormSchema = z.object({
+const loginSchema = z.object({
   username: z
     .string()
     .min(2, { message: "Name must be at least 2 characters long." })
@@ -14,14 +14,6 @@ export const LoginFormSchema = z.object({
       message: "Contain at least one special character.",
     })
     .trim(),
-});
+})
 
-export type FormState =
-  | {
-      errors?: {
-        username?: string[];
-        password?: string[];
-      };
-      message?: string;
-    }
-  | undefined;
+export default loginSchema;

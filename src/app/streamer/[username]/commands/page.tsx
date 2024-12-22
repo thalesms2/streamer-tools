@@ -1,4 +1,4 @@
-import CommandChip from "@/components/command-chip";
+import CommandChip from "@/app/streamer/[username]/commands/commandChip";
 import prisma from "@/lib/prisma";
 import { ICommands } from "@/types/command";
 import { IStreamer } from "@/types/streamer";
@@ -32,7 +32,7 @@ export default async function Commands({
     <div>
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3">
         {commands?.map((command) => {
-          return <CommandChip data={command} key={command.id} />;
+          return <CommandChip data={command} key={command.id} theme={streamer.theme}/>;
         })}
       </div>
     </div>
