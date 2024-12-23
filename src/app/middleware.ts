@@ -1,7 +1,7 @@
 "use server";
 
 import { NextRequest, NextResponse } from "next/server";
-import { validateSession } from "../lib/session";
+import { validateSession } from "@/lib/session";
 
 // 1. Specify protected and public routes
 const protectedRoutes = ["/settings"];
