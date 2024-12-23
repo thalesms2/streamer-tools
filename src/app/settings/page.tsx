@@ -4,6 +4,7 @@ import ConfigureInformation from "./information";
 import UploadAvatar from "./uploadAvatar";
 import type IInformationData from "@/types/informationData";
 import { returnId } from "@/lib/session";
+import prisma from "@/lib/prisma";
 
 export default async function SettingsPage() {
   const id = await returnId();
