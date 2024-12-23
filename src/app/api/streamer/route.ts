@@ -1,7 +1,8 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, response: NextResponse) {
   const id = request.nextUrl.searchParams.get("id");
   const secret = request.headers.get("secret");
   const commands = request.headers.get("commands");
@@ -39,6 +40,7 @@ export async function GET(request: NextRequest) {
     const dbReturn = await prisma.commands.createManyAndReturn({
       data: commandFormated,
     });
+    revalidatePath(`/streamer/${streamer.username}/commands`);
     return new Response("Comandos inseridos com sucesso!");
   } else {
     return new Response("Bad Request", { status: 400 });
